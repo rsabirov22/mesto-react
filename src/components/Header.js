@@ -1,18 +1,11 @@
-import React from 'react';
+function Header({ logo }) {
 
-class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.logo = props.logo
-  }
+  return (
+    <header className="header">
+      <img src={logo} alt="логотип" className="header__logo"/>
+    </header>
+  );
 
-  render() {
-      return (
-        <header className="header">
-          <img src={this.logo} alt="логотип" className="header__logo"/>
-        </header>
-      );
-    }
 }
 
 export default Header;
