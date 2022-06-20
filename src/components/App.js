@@ -11,43 +11,51 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true)
+    setIsEditAvatarPopupOpen(true);
   };
 
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true)
+    setIsEditProfilePopupOpen(true);
   };
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true)
+    setIsAddPlacePopupOpen(true);
   };
+
+  function handleCardClick(card) {
+    setSelectedCard(card)
+  }
+
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setSelectedCard({})
+  }
 
   return (
     <div className="page">
       <div className="page__container">
         <Header logo={logo}/>
 
-        <Main onEditProfile={handleEditProfileClick} onAddPlace ={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} />
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace ={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+        />
 
         <Footer/>
 
-        <template id="card">
-          <div className="element">
-            <img className="element__image" src="#" alt="#"/>
-            <div className="element__description">
-              <p className="element__title"></p>
-              <div className="element__likes">
-                <button type="button" aria-label="Лайк" className="element__btn"></button>
-                <span className="element__counter"></span>
-              </div>
-            </div>
-            <button type="button" aria-label="Удалить" className="element__del" disabled="disabled"></button>
-          </div>
-        </template>
-
-        <PopupWithForm name={'edit'} title={'Редактировать профиль'} isOpen={isEditProfilePopupOpen}>
+        <PopupWithForm
+          name={'edit'}
+          title={'Редактировать профиль'}
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          >
           <label className="popup__field">
             <input
               type="text"
@@ -78,7 +86,12 @@ function App() {
           </label>
         </PopupWithForm>
 
-        <PopupWithForm name={'add'} title={'Новое место'} isOpen={isAddPlacePopupOpen}>
+        <PopupWithForm
+          name={'add'}
+          title={'Новое место'}
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+        >
           <label className="popup__field">
             <input
               type="text"
@@ -107,9 +120,12 @@ function App() {
           </label>
         </PopupWithForm>
 
-        <PopupWithForm name={'confirm'} title={'Вы уверены?'}/>
-
-        <PopupWithForm name={'avatar'} title={'Обновить аватар'} isOpen={isEditAvatarPopupOpen}>
+        <PopupWithForm
+          name={'avatar'}
+          title={'Обновить аватар'}
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+        >
           <label className="popup__field">
             <input
               type="url"
@@ -125,7 +141,7 @@ function App() {
           </label>
         </PopupWithForm>
 
-        <ImagePopup/>
+        <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
 
       </div>
     </div>

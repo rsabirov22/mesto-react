@@ -1,14 +1,8 @@
-function PopupWithForm({ name, title, children, isOpen }) {
-
-  let popupClassName = `popup popup_${name}`;
-
-  if (isOpen) {
-    popupClassName += ' popup_opened';
-  }
+function PopupWithForm({ name, title, children, isOpen, onClose }) {
 
   return (
 
-    <div className={popupClassName}>
+    <div className={isOpen ? `popup popup_${name} popup_opened` : `popup popup_${name}`}>
       <div className="popup__container">
         <form className={`popup__form popup__form_${name}`} name={name} noValidate>
           <h3 className="popup__title">{title}</h3>
@@ -25,6 +19,7 @@ function PopupWithForm({ name, title, children, isOpen }) {
           type="button"
           aria-label="Закрыть"
           id={`${name}-close`}
+          onClick={onClose}
           className="popup__close-btn"
         ></button>
       </div>

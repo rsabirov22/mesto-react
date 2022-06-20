@@ -1,11 +1,11 @@
-function ImagePopup() {
+function ImagePopup({ card, onClose }) {
 
   return (
-    <div className="gallery">
+    <div className={Object.keys(card).length === 0 ? 'gallery' : 'gallery popup_opened'}>
       <div className="gallery__container">
-        <img src="#" className="gallery__img" alt="изображение"/>
-        <p className="gallery__description"></p>
-        <button type="button" aria-label="Закрыть" className="gallery__close-btn"></button>
+        <img src={card.link} className="gallery__img" alt={card.name}/>
+        <p className="gallery__description">{card.name}</p>
+        <button type="button" aria-label="Закрыть" className="gallery__close-btn" onClick={onClose}></button>
       </div>
     </div>
   );
