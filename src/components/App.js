@@ -51,8 +51,8 @@ function App() {
         <Footer/>
 
         <PopupWithForm
-          name={'edit'}
-          title={'Редактировать профиль'}
+          name="edit"
+          title="Редактировать профиль"
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           >
@@ -87,8 +87,8 @@ function App() {
         </PopupWithForm>
 
         <PopupWithForm
-          name={'add'}
-          title={'Новое место'}
+          name="add"
+          title="Новое место"
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
         >
@@ -121,8 +121,8 @@ function App() {
         </PopupWithForm>
 
         <PopupWithForm
-          name={'avatar'}
-          title={'Обновить аватар'}
+          name="avatar"
+          title="Обновить аватар"
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
         >
