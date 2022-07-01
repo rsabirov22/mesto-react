@@ -7,6 +7,7 @@ import ImagePopup from './ImagePopup';
 import api from '../utils/api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import React from 'react';
+import EditProfilePopup from './EditProfilePopup';
 
 function App() {
 
@@ -39,6 +40,14 @@ function App() {
     setSelectedCard({})
   }
 
+  function handleUpdateUser(userInfo) {
+    api.patchProfile(userInfo)
+      .then((data) => {
+        setCurrentUser(data);
+        closeAllPopups();
+      })
+  }
+
   React.useEffect(() => {
     // Загрузка информации о пользователе
     api.getProfile()
@@ -64,41 +73,7 @@ function App() {
 
           <Footer/>
 
-          <PopupWithForm
-            name="edit"
-            title="Редактировать профиль"
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            >
-            <label className="popup__field">
-              <input
-                type="text"
-                className="popup__input popup__input_type_name"
-                id="nickname"
-                name="name"
-                placeholder="Имя"
-                minLength="2"
-                maxLength="40"
-                required
-                autoComplete="off"
-              />
-              <span id="nickname-error" className="popup__error"></span>
-            </label>
-            <label className="popup__field">
-              <input
-                type="text"
-                className="popup__input popup__input_type_description"
-                id="job"
-                name="about"
-                placeholder="О себе"
-                minLength="2"
-                maxLength="200"
-                required
-                autoComplete="off"
-              />
-              <span id="job-error" className="popup__error"></span>
-            </label>
-          </PopupWithForm>
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
 
           <PopupWithForm
             name="add"
