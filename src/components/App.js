@@ -3,14 +3,12 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import logo from '../images/logo.svg';
 import ImagePopup from './ImagePopup';
 import api from '../utils/api.js';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
-
 
 function App() {
   const [cards, setCards] = React.useState([]);
@@ -41,6 +39,14 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard({})
+  }
+
+  function handleAddPlaceSubmit(newCard) {
+    api.postCard(newCard)
+      .then((data) => {
+        setCards([data, ...cards]);
+        closeAllPopups();
+      })
   }
 
   function handleUpdateUser(userInfo) {
@@ -117,7 +123,7 @@ function App() {
 
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
 
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
         </CurrentUserContext.Provider>

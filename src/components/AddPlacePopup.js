@@ -1,33 +1,26 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function AddPlacePopup ({ isOpen, onClose, onUpdateUser }) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const currentUser = useContext(CurrentUserContext);
+function AddPlacePopup ({ isOpen, onClose, onAddPlace }) {
+  const [cardName, setCardName] = useState('');
+  const [cardLink, setCardLink] = useState('');
 
-  function handleChangeName(e) {
-    setName(e.target.value);
+  function handleAddNewCardName(e) {
+    setCardName(e.target.value);
   }
 
-  function handleChangeDescription(e) {
-    setDescription(e.target.value);
+  function handleAddNewCardLink(e) {
+    setCardLink(e.target.value);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    onUpdateUser({
-      name,
-      about: description,
+    onAddPlace({
+      name: cardName,
+      link: cardLink
     });
   }
-
-  useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
 
   return (
     <PopupWithForm
@@ -35,11 +28,14 @@ function AddPlacePopup ({ isOpen, onClose, onUpdateUser }) {
       title="Новое место"
       isOpen={isOpen}
       onClose={onClose}
+      onSubmit={handleSubmit}
     >
       <label className="popup__field">
         <input
           type="text"
           className="popup__input"
+          onChange={handleAddNewCardName}
+          value={cardName}
           id="card-name"
           name="name"
           placeholder="Название"
@@ -54,6 +50,8 @@ function AddPlacePopup ({ isOpen, onClose, onUpdateUser }) {
         <input
           type="url"
           className="popup__input"
+          onChange={handleAddNewCardLink}
+          value={cardLink}
           id="img-link"
           name="link"
           placeholder="Ссылка на картинку"
