@@ -47,6 +47,7 @@ function App() {
         setCards([data, ...cards]);
         closeAllPopups();
       })
+      .catch(err => console.log(err));
   }
 
   function handleUpdateUser(userInfo) {
@@ -55,6 +56,7 @@ function App() {
         setCurrentUser(data);
         closeAllPopups();
       })
+      .catch(err => console.log(err));
   }
 
   function handleUpdateAvatar(avatarLink) {
@@ -63,6 +65,7 @@ function App() {
         setCurrentUser(data);
         closeAllPopups();
       })
+      .catch(err => console.log(err));
   }
 
   function handleCardLike(card) {
@@ -71,7 +74,8 @@ function App() {
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
           setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-      });
+      })
+      .catch(err => console.log(err));
   }
 
   function handleCardDelete(card) {
@@ -79,6 +83,7 @@ function App() {
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id));
       })
+      .catch(err => console.log(err));
   }
 
   React.useEffect(() => {
