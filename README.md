@@ -22,6 +22,8 @@ SPA веб-приложение для фотографий из различн�
 
 ## Ссылка на GitHub Pages
 
+https://rsabirov22.github.io/mesto-react/index.html
+
 
 
 
